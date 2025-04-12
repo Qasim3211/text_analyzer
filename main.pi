@@ -1,1 +1,58 @@
+import streamlit as st
+st.title("Text Analyzer")
 
+
+paragraph = st.text_area("Enter your paragraph here:")
+
+if paragraph:      
+    
+    paragraph = str(paragraph)
+
+    
+
+   
+    words = paragraph.split()
+    word_count = len(words)
+    char_count = len(paragraph)
+
+    
+    vowels = 'aeiouAEIOU'
+    vowel_count = sum(1 for char in paragraph if char in vowels)
+
+   
+    search_word = st.text_input("Enter a word to search:")
+    replace_word = st.text_input("Enter the word to replace it with:")
+
+    if search_word and replace_word:
+        modified_paragraph = paragraph.replace(search_word, replace_word)
+        st.subheader("Modified Paragraph:")
+        st.write(modified_paragraph)
+
+   
+    st.subheader("Paragraph in Uppercase:")
+    st.write(paragraph.upper())
+
+    st.subheader("Paragraph in Lowercase:")
+    st.write(paragraph.lower())
+
+    
+    st.subheader("Text Analysis Summary")
+    st.write(f"Total number of words: {str(word_count)}")
+    st.write(f"Total number of characters (including spaces): {str(char_count)}")
+    st.write(f"Total number of vowels: {str(vowel_count)}")
+
+    
+    if "Python" in paragraph:
+        st.success("The paragraph contains the word 'Python'.")
+    else:
+        st.warning("The paragraph does NOT contain the word 'Python'.")
+
+    
+    if word_count > 0:
+        average_word_length = char_count / word_count
+        st.write(f"Average word length: {average_word_length:.2f}")
+    else:
+        st.write("Cannot calculate average word length (word count is zero).")
+
+else:
+    st.warning("Please enter a paragraph to analyze.")
